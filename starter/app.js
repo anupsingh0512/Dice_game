@@ -45,5 +45,46 @@ document.querySelector('.btn-roll').addEventListener('click',function()
     else 
     {
         //Next Player 
+        NextPlayer();
+        
+       // document.querySelector('.player-0-panel').classList.remove('active');
+        //document.querySelector('.player-0-panel').classList.add('active');
     }
 });
+
+document.querySelector('.btn-hold').addEventListener('click',function(){
+// Add current Score to Global Score 
+scores[activeplayer]+=roundscore;
+
+//Update the UI 
+document.querySelector('#score-'+ activeplayer).textContent=scores[activeplayer];
+
+//Check if player won the game  
+if(scores[activeplayer]>=20)
+{
+    document.querySelector('#name-' + activeplayer).textContent='Winner!';
+    document.querySelector('.dice').style.display='none';
+    document.querySelector('.player-'+activeplayer+'-panel').classList.add('winner');
+    document.querySelector('.player-'+activeplayer+'-panel').classList.remove('active');
+
+}
+else
+{
+    NextPlayer();
+}
+
+//NextPlayer
+       NextPlayer();
+
+});
+
+function NextPlayer()
+{
+    activeplayer===0?activeplayer = 1 : activeplayer=0;
+    roundscore=0;
+    document.getElementById('current-0').textContent='0';
+    document.getElementById('current-1').textContent='0';
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.dice').style.display='none';
+}
